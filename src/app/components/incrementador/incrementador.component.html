@@ -1,0 +1,3 @@
+<button (click)="agragarValor(5)">aumentar</button>
+<input (ngModelChange)="cambioDeValor($event)" class="form-control" type="number" [(ngModel)]="valor">
+<button [ngClass]="botonNuevo" (click)="agragarValor(-5)">disminuir</button>

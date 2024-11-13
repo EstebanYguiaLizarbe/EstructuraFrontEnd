@@ -1,0 +1,10 @@
+<div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" [style.width]="getValor"></div>
+</div>
+
+<div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" [style.width]="getValorDos"></div>
+</div>
+
+<app-incrementador [valor]="valor" botonNuevo="btn btn-danger" (valorSalida)="valor = $event" ></app-incrementador>
+<app-incrementador [valor]="getValor2" (valorSalida)="getValor2 = $event" ></app-incrementador>
