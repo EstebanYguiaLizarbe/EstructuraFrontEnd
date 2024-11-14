@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { HeaderComponent } from './header/header.component';
+import { BreadcrumsComponent } from './breadcrums/breadcrums.component';
 
 const MOBILE_VIEW = 'screen and (max-width: 768px)';
 const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
@@ -28,6 +29,7 @@ const BELOWMONITOR = 'screen and (max-width: 1023px)';
     SidebarComponent,
     NgScrollbarModule,
     HeaderComponent,
+    BreadcrumsComponent,
   ],
   templateUrl: './shared.component.html'
 })

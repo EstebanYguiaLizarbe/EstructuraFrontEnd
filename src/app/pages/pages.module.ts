@@ -10,6 +10,7 @@ import { BaseChartDirective } from 'ng2-charts';
   imports: [
     CommonModule,
     PagesRoutingModule,
+    BaseChartDirective
   ]
 })
 export class PagesModule { }

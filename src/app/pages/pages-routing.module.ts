@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedComponent } from '../shared/shared.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { Grafico1Component } from './grafico1/grafico1.component';
+import { ObservableComponent } from './observable/observable.component';
 
 const routes: Routes = [
   {
@@ -17,7 +18,25 @@ const routes: Routes = [
       {
         path: 'dashboard',
         title: 'Dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
+        data: {
+          titulo: 'Dashboard'
+        }
+      },
+
+      {
+        path: 'test01',
+        component: Grafico1Component,
+        data: {
+          titulo : 'Grafico 1'
+        }
+      },
+      {
+        path: 'observable',
+        component: ObservableComponent,
+        data: {
+          titulo: 'Observable'
+        }
       },
       
     //   {

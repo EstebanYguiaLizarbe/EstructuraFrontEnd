@@ -16,12 +16,12 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Badge',
     iconName: 'solar:archive-minimalistic-line-duotone',
-    route: '/ui-components/badge',
+    route: '/test01',
   },
   {
     displayName: 'Chips',
     iconName: 'solar:danger-circle-line-duotone',
-    route: '/ui-components/chips',
+    route: '/observable',
   },
   {
     displayName: 'Lists',
