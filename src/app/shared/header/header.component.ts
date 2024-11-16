@@ -6,10 +6,11 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { MaterialModule } from '../../material.module';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { MatButtonModule } from '@angular/material/button';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-header',
@@ -20,10 +21,24 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class HeaderComponent {
 
+  public imgUrl = '';
+
   @Input() showToggle = true;
   @Input() toggleChecked = false;
   @Output() toggleMobileNav = new EventEmitter<void>();
   @Output() toggleCollapsed = new EventEmitter<void>();
 
-  constructor() {}
+  constructor(
+    private usuarioService: UsuarioService,
+  ) {
+
+    //Hasta que conecte con la DB
+    // this.imgUrl = this.usuarioService.usuario.imagenUrl;
+
+    this.imgUrl = '/assets/images/profile/user-1.jpg';
+  }
+
+  logout(){
+    this.usuarioService.logout();
+  }
 }

@@ -76,4 +76,14 @@ export const navItems: NavItem[] = [
     iconName: 'solar:planet-3-line-duotone',
     route: '/extra/sample-page',
   },
+  {
+    displayName: 'Perfil',
+    iconName: 'solar:planet-3-line-duotone',
+    route: '/perfil',
+  },
+  {
+    displayName: 'Usuarios',
+    iconName: 'solar:sticker-smile-circle-2-line-duotone',
+    route: '/usuarios',
+  },
 ];

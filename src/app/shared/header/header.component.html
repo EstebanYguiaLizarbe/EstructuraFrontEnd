@@ -43,7 +43,7 @@
       class="d-flex justify-content-center profile-btn-dd"
     >
       <img
-        src="/assets/images/profile/user-1.jpg"
+        [src]="imgUrl"
         class="rounded-circle object-cover icon-35 profile-dd"
         width="35"
       />
@@ -76,7 +76,7 @@
   
       <div class="p-x-12 m-t-12">
         <a
-          [routerLink]="['/authentication/login']"
+          (click)="logout()"        
           mat-stroked-button
           color="primary"
           class="w-100"

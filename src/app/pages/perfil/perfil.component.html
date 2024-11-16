@@ -1,0 +1,67 @@
+<mat-card class="cardWithShadow theme-card">
+    <mat-card-header>
+      <mat-card-title class="m-b-0">Opciones del Perfil</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="b-t-1">
+      <form (submit)="actualizarUsuario()" [formGroup]="actualizarForm">
+        <div class="row">
+          <div class="col-lg-6">
+            <!-- input -->
+            <mat-label class="f-w-600 m-b-8 d-block">Your Name</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input formControlName="nombre" matInput placeholder="your name " />
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6">
+            <!-- input -->
+            <mat-label class="f-w-600 m-b-8 d-block">Email</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input [readonly]="true" formControlName="email" matInput type="email" placeholder="your email" />
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6">
+            <!-- input -->
+            <mat-label class="f-w-600 m-b-8 d-block">Password</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input formControlName="password" matInput type="password" placeholder="your password" />
+            </mat-form-field>
+          </div>
+          
+        </div>
+  
+        <div class="m-t-12">
+          <button mat-flat-button color="primary" type="submit" class="m-r-8">Cambiar</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  
+  <mat-card class="cardWithShadow theme-card">
+    <mat-card-header>
+      <mat-card-title class="m-b-0">Cambiar Avatar</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="b-t-1">
+      <form>
+        <div class="row">
+
+          <div class="col-lg-6">
+            <!-- input -->
+            <mat-label class="f-w-600 m-b-8 d-block">Cambiar imagen</mat-label>
+            
+              <input type="file" (change)="cambiarImagen($event)" />
+
+          </div>
+
+          <!-- <img [src]="imgTemp" [alt]="usuario.nombre"> -->
+          <!-- <img *ngIf="!imgTemp" [src]="usuario.imagenUrl" [alt]="usuario.nombre"> -->
+          
+        </div>
+  
+        <div class="m-t-12">
+          <button (click)="subirImagen()" [disabled]="!imagenSubir" mat-flat-button color="primary" class="m-r-8">Cambiar</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>

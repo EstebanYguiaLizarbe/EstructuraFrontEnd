@@ -43,7 +43,7 @@ export class SharedComponent {
   //get options from service
   private layoutChangesSubscription = Subscription.EMPTY;
   private isMobileScreen = false;
-  private isContentWidthFixed = true;
+  private isContentWidthFixed = true; 
   private isCollapsedWidthFixed = false;
   private htmlElement!: HTMLHtmlElement;
 

@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit{
   public formGroup: FormGroup = new FormGroup({});
   public formSubmmited: boolean = false;
 
-  constructor(private fb: FormBuilder, private usuarioService: UsuarioService){
+  constructor(private router: Router,private fb: FormBuilder, private usuarioService: UsuarioService){
 
   }
 
@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit{
       nombre: ['EstebanReg', [Validators.required, Validators.minLength(3)]],
       email: ['testregister@gmail.com', [Validators.required, Validators.email]],
       password1: ['123', Validators.required],
-      password2: ['123', Validators.required]
+      password2: ['123', Validators.required],
     }, {
       validators: this.passwordsIguales('password1', 'password2')
     })
@@ -45,6 +45,8 @@ export class RegisterComponent implements OnInit{
     }
   }
 
+  //
+
   crearUsuario(){
     this.formSubmmited = true;
     console.log(this.formGroup.value);
@@ -55,6 +57,7 @@ export class RegisterComponent implements OnInit{
 
     this.usuarioService.crearUsuario(this.formGroup.value).subscribe(resp =>{
       console.log('usuaurio creado');
+      this.router.navigateByUrl('/login');
       console.log(resp);
     }, (error) => {
       console.warn(error);
