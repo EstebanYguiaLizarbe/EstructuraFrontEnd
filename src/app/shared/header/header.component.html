@@ -42,14 +42,16 @@
       aria-label="Notifications"
       class="d-flex justify-content-center profile-btn-dd"
     >
-      <img
-        [src]="imgUrl"
+
+
+      <img 
+        [src]="usuario.imagenUrl"
         class="rounded-circle object-cover icon-35 profile-dd"
         width="35"
       />
     </button>
     <mat-menu #profilemenu="matMenu" class="topbar-dd cardWithShadow">
-      <button mat-menu-item>
+      <button routerLink="./perfil" mat-menu-item>
         <mat-icon class="d-flex align-items-center"
           ><i
             data-icon="solar:shield-user-line-duotone"

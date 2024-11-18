@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { MatButtonModule } from '@angular/material/button';
 import { UsuarioService } from '../../services/usuario.service';
+import { Usuario } from '../../models/Usuario';
 
 @Component({
   selector: 'app-header',
@@ -22,6 +23,7 @@ import { UsuarioService } from '../../services/usuario.service';
 export class HeaderComponent {
 
   public imgUrl = '';
+  public usuario!: Usuario;
 
   @Input() showToggle = true;
   @Input() toggleChecked = false;
@@ -31,11 +33,11 @@ export class HeaderComponent {
   constructor(
     private usuarioService: UsuarioService,
   ) {
-
+    this.usuario = this.usuarioService.usuario;
     //Hasta que conecte con la DB
-    // this.imgUrl = this.usuarioService.usuario.imagenUrl;
+    this.imgUrl = this.usuarioService.usuario.imagenUrl;
 
-    this.imgUrl = '/assets/images/profile/user-1.jpg';
+    // this.imgUrl = '/assets/images/profile/user-1.jpg';
   }
 
   logout(){

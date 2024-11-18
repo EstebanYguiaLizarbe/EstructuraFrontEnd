@@ -1,0 +1,37 @@
+<mat-card class="cardWithShadow theme-card">
+    <mat-card-header>
+      <mat-card-title class="m-b-0">Actualizar Informacion (Medico)</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="b-t-1">
+      <form (submit)="guardarMedico()" [formGroup]="medicoForm">
+        <div class="row">
+          <div class="col-lg-6">
+            <!-- input -->
+            <mat-label class="f-w-600 m-b-8 d-block">Nombre</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input formControlName="nombre" matInput placeholder="your name " />
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6">
+            <mat-label class="f-w-600 m-b-8 d-block">Hospital</mat-label>
+            <mat-form-field  appearance="outline" class="w-100">
+              <mat-select formControlName="hospital" >
+                @for(option of hospitales; track option.nombre) {
+                <mat-option [value]="option._id">{{
+                  option.nombre
+                }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+          
+          
+        </div>
+  
+        <div class="m-t-12">
+          <button mat-flat-button color="primary" type="submit" class="m-r-8">Crear</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>

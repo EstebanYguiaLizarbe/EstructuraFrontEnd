@@ -86,4 +86,14 @@ export const navItems: NavItem[] = [
     iconName: 'solar:sticker-smile-circle-2-line-duotone',
     route: '/usuarios',
   },
+  {
+    displayName: 'Hospitales',
+    iconName: 'solar:sticker-smile-circle-2-line-duotone',
+    route: '/hospitales',
+  },
+  {
+    displayName: 'Medicos',
+    iconName: 'solar:sticker-smile-circle-2-line-duotone',
+    route: '/medicos',
+  },
 ];

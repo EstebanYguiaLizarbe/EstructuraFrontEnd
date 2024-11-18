@@ -15,20 +15,33 @@ export class Usuario {
 
     }
 
-    get imagenUrl(){
-        if(this.img){
+    // get imagenUrl(){
+    //     if(this.img){
             //De prueba hasta que tenga el backend
-            return '/assets/images/profile/user-1.jpg';
+            // return '/assets/images/profile/user-1.jpg';
 
 
-            // return `${base_url}/upload/usuarios/${this.img}`;
-        } else {
+        //     return `${base_url}/upload/usuarios/${this.img}`;
+        // } else {
 
             //De prueba hasta que tenga el backend
-            return '/assets/images/profile/user-1.jpg';
+            // return '/assets/images/profile/user-1.jpg';
 
             //Cambiar por la url de la imagen por defecto
             // return `${base_url}/upload/usuarios/image-not-found`;
+    //     }
+    // }
+
+    get imagenUrl() {
+
+        if ( !this.img ) {
+            return '/assets/images/profile/user-1.jpg';
+        } else if ( this.img.includes('https') ) {
+            return this.img;
+        } else if ( this.img ) {
+            return `${ base_url }/upload/usuarios/${ this.img }`;
+        } else {
+            return '/assets/images/profile/user-1.jpg';
         }
     }
 

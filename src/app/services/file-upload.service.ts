@@ -36,7 +36,7 @@ export class FileUploadService {
       }
 
     } catch (error) {
-      console.log(error);
+      console.log(error, "soy el error");
     }
   }
 }

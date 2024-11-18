@@ -11,6 +11,7 @@ import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../models/Usuario';
 import { FileUploadService } from '../../services/file-upload.service';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-perfil',
@@ -44,9 +45,8 @@ export class PerfilComponent implements OnInit {
   }
   ngOnInit(): void {
     this.actualizarForm = this.fb.group({
-      nombre: ['EstebanReg', Validators.required],
-      email: ['prueba', [Validators.required, Validators.email]],
-      password: ['123', [Validators.required, Validators.minLength(6)]],
+      nombre: [this.usuario.nombre, Validators.required],
+      email: [this.usuario.email, [Validators.required, Validators.email]],
     })  
   }
 
@@ -74,10 +74,13 @@ export class PerfilComponent implements OnInit {
         this.usuario.nombre = resp.nombre;
         this.usuario.email = resp.email;
 
+        Swal.fire('Guardado', 'Informacion de usuario actualizada', 'success');
       }, error => {
 
         //importar modal para el manejo de errores
         console.log(error);
+
+        Swal.fire('Error', error.error.msg, 'error');
       }
     )
     console.log(this.actualizarForm.value);
@@ -85,6 +88,9 @@ export class PerfilComponent implements OnInit {
 
   subirImagen(){
     this.fileService.actualizarFot(this.imagenSubir,"usuarios", this.usuario.uid)
-    .then(img => this.usuario.img = img);
+    .then(img => {
+      this.usuario.img = img
+      Swal.fire('Guardado', 'Imagen de usuario actualizada', 'success');
+    });
   }
 }

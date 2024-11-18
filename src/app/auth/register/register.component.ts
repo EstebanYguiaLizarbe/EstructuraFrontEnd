@@ -11,6 +11,7 @@ import { Router, RouterModule } from '@angular/router';
 import { MaterialModule } from '../../material.module';
 import { CommonModule } from '@angular/common';
 import { UsuarioService } from '../../services/usuario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -30,10 +31,10 @@ export class RegisterComponent implements OnInit{
     this.formGroup = this.fb.group({
       nombre: ['EstebanReg', [Validators.required, Validators.minLength(3)]],
       email: ['testregister@gmail.com', [Validators.required, Validators.email]],
-      password1: ['123', Validators.required],
+      password: ['123', Validators.required],
       password2: ['123', Validators.required],
     }, {
-      validators: this.passwordsIguales('password1', 'password2')
+      validators: this.passwordsIguales('password', 'password2')
     })
   }
 
@@ -52,11 +53,13 @@ export class RegisterComponent implements OnInit{
     console.log(this.formGroup.value);
 
     if(this.formGroup.invalid){
+      Swal.fire('Error', 'Cambios fueron guardados', 'error');
       return;
     }
 
     this.usuarioService.crearUsuario(this.formGroup.value).subscribe(resp =>{
       console.log('usuaurio creado');
+      Swal.fire('Guardado', 'Usuario creado con exito', 'success');
       this.router.navigateByUrl('/login');
       console.log(resp);
     }, (error) => {
@@ -82,7 +85,7 @@ export class RegisterComponent implements OnInit{
   }
 
   contrasenasValidas(){
-    const pass1 = this.formGroup.get('password1');
+    const pass1 = this.formGroup.get('password');
     const pass2 = this.formGroup.get('password2');
 
     if((pass1 === pass2) && this.formSubmmited){

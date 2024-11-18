@@ -7,12 +7,15 @@ import { ObservableComponent } from './observable/observable.component';
 import { authGuard } from '../guards/auth.guard';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimiento/usuarios/usuarios.component';
+import { HospitalesComponent } from './mantenimiento/hospitales/hospitales.component';
+import { MedicosComponent } from './mantenimiento/medicos/medicos.component';
+import { MedicoComponent } from './mantenimiento/medicos/medico.component';
 
 const routes: Routes = [
   {
     path: '',
     component: SharedComponent,
-    // canActivate: [ authGuard ],
+    canActivate: [ authGuard ],
     children: [
       { path: '', redirectTo: '/dashboard', pathMatch: 'full',},
       { path: 'dashboard', title: 'Dashboard', component: DashboardComponent, data: { titulo: 'Dashboard' }},
@@ -35,6 +38,9 @@ const routes: Routes = [
 
       //Mantenimiento:
       { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Usuarios'}},
+      { path: 'hospitales', component: HospitalesComponent, data: { titulo: 'Hospitales'}},
+      { path: 'medicos', component: MedicosComponent, data: { titulo: 'Medicos'}},
+      { path: 'medicos/:id', component: MedicoComponent, data: { titulo: 'Editar Medico'}},
     ],
   },
 ];

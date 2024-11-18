@@ -38,13 +38,17 @@ export class UsuarioService {
       
   }
 
+  get uid():string {
+    return this.usuario.uid || '';
+  }
+
   logout(){
     localStorage.removeItem('token');
-    
-    google.accounts.id.revoke('correo', () => {
-      this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/login');
+    // google.accounts.id.revoke('correo', () => {
 
-    });
+
+    // });
   }
 
   validarToken(): Observable<boolean>{
@@ -90,7 +94,13 @@ export class UsuarioService {
     )
   }
 
-  actualizarUsuario(data: {nombre: string, email: string}){
+  actualizarUsuario(data: {nombre: string, email: string, role: string}){
+
+    data = {
+      ...data,
+      role: this.usuario.role
+    }
+
     return this.Http.put(`${base_url}/usuarios/${this.usuario.uid}`, data, {
       headers: {
         'x-token': this.token
@@ -99,6 +109,31 @@ export class UsuarioService {
   }
 
   obtenerUsuarios(desde: number = 0){
-    return this.Http.get<CargaUsuario>(`${base_url}/usuarios/?desde=${desde}`, this.headers)
+    return this.Http.get<CargaUsuario>(`${base_url}/usuarios/?desde=${desde}`, this.headers).pipe(
+      map( resp => {
+        const usuarios = resp.usuarios.map( 
+          user => new Usuario(user.nombre, user.email, user.google, user.role, user.uid, user.img, "" )  
+        );
+        return {
+          total: resp.total,
+          usuarios
+        };
+      })
+    );
   }
+
+  eliminarUsuario( usuario: Usuario ) {
+    
+    // /usuarios/5eff3c5054f5efec174e9c84
+    const url = `${ base_url }/usuarios/${ usuario.uid }`;
+    return this.Http.delete( url, this.headers );
+  }
+
+
+  guardarUsuario( usuario: Usuario ) {
+
+    return this.Http.put(`${ base_url }/usuarios/${ usuario.uid }`, usuario, this.headers );
+
+  }
+
 }
