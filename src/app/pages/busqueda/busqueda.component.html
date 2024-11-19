@@ -1,0 +1,204 @@
+<mat-card class="cardWithShadow">
+    <mat-card-content>
+      <mat-card-title>Listado de Usuarios</mat-card-title>
+
+      <mat-card-title *ngIf="usuarios.length === 0" >No hay Usuarios</mat-card-title>
+  
+      <div *ngIf="usuarios.length > 0" class="table-responsive">
+        <table mat-table [dataSource]="usuarios" class="w-100">
+
+          <ng-container matColumnDef="avatar">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="f-w-600 mat-subtitle-1 f-s-14 p-l-0"
+            >
+              Avatar
+            </th>
+            <td mat-cell *matCellDef="let element" class="p-l-0">
+              <div class="d-flex align-items-center">
+                <img
+                  [src]="element.img | imagen: 'usuarios'"
+                  alt="users"
+                  width="60"
+                  class="rounded"
+                />
+                <div class="m-l-16">
+                  <h6 class="mat-subtitle-1 f-s-14 f-w-600">
+                    {{ element.nombre }}
+                  </h6>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="nombre">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="f-w-600 mat-subtitle-1 f-s-14 p-l-0"
+            >
+              Nombre
+            </th>
+            <td mat-cell *matCellDef="let element" class="p-l-0">
+              <div class="d-flex align-items-center">
+                <!-- <img
+                  [src]="element.imagePath"
+                  alt="users"
+                  width="60"
+                  class="rounded"
+                /> -->
+                <div class="m-l-16">
+                  <h6 class="mat-subtitle-1 f-s-14 f-w-600">
+                    {{ element.nombre }}
+                  </h6>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
+        </table>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="cardWithShadow">
+    <mat-card-content>
+      <mat-card-title>Listado de Hospitales</mat-card-title>
+
+      <mat-card-title *ngIf="hospitales.length === 0">No hay Hospitales</mat-card-title>
+  
+      <div   *ngIf="hospitales.length > 0" class="table-responsive">
+        <table mat-table [dataSource]="hospitales" class="w-100">
+
+          <ng-container matColumnDef="avatar">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="f-w-600 mat-subtitle-1 f-s-14 p-l-0"
+            >
+              Avatar
+            </th>
+            <td mat-cell *matCellDef="let element" class="p-l-0">
+              <div class="d-flex align-items-center">
+                <img
+                  [src]="element.img | imagen: 'hospitales'"
+                  alt="users"
+                  width="60"
+                  class="rounded"
+                />
+                <div class="m-l-16">
+                  <h6 class="mat-subtitle-1 f-s-14 f-w-600">
+                    {{ element.nombre }}
+                  </h6>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="nombre">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="f-w-600 mat-subtitle-1 f-s-14 p-l-0"
+            >
+              Nombre
+            </th>
+            <td mat-cell *matCellDef="let element" class="p-l-0">
+              <div class="d-flex align-items-center">
+                <!-- <img
+                  [src]="element.imagePath"
+                  alt="users"
+                  width="60"
+                  class="rounded"
+                /> -->
+                <div class="m-l-16">
+                  <h6 class="mat-subtitle-1 f-s-14 f-w-600">
+                    {{ element.nombre }}
+                  </h6>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
+        </table>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="cardWithShadow">
+    <mat-card-content>
+      <mat-card-title>Listado de Medicos</mat-card-title>
+
+      <mat-card-title *ngIf="medicos.length === 0">No hay Medicos</mat-card-title>
+      
+  
+      <div *ngIf="medicos.length > 0" class="table-responsive">
+        <table mat-table [dataSource]="medicos" class="w-100">
+
+          <ng-container matColumnDef="avatar">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="f-w-600 mat-subtitle-1 f-s-14 p-l-0"
+            >
+              Avatar
+            </th>
+            <td mat-cell *matCellDef="let element" class="p-l-0">
+              <div style="cursor: pointer;" [routerLink]="['/medicos', element._id ]" class="d-flex align-items-center">
+                <img
+                  [src]="element.img | imagen: 'medicos'"
+                  alt="users"
+                  width="60"
+                  class="rounded"
+                />
+                <div class="m-l-16">
+                  <h6 class="mat-subtitle-1 f-s-14 f-w-600">
+                    {{ element.nombre }}
+                  </h6>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="nombre">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="f-w-600 mat-subtitle-1 f-s-14 p-l-0"
+            >
+              Nombre
+            </th>
+            <td style="cursor: pointer;" [routerLink]="['/medicos', element._id ]" mat-cell *matCellDef="let element" class="p-l-0">
+              <div class="d-flex align-items-center">
+                <!-- <img
+                  [src]="element.imagePath"
+                  alt="users"
+                  width="60"
+                  class="rounded"
+                /> -->
+                <div class="m-l-16">
+                  <h6 class="mat-subtitle-1 f-s-14 f-w-600">
+                    {{ element.nombre }}
+                  </h6>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
+        </table>
+
+      </div>
+    </mat-card-content>
+  </mat-card>

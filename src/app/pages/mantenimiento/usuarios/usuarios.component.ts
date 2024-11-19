@@ -89,7 +89,7 @@ export class UsuariosComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.obtenerUsuarios();
-    this.imgSubs = this.modalImageService.nuevaImagen.subscribe( img => this.obtenerUsuarios() );
+    this.imgSubs = this.imgSubs = this.modalImageService.nuevaImagen.pipe(delay(100)).subscribe( img => this.obtenerUsuarios() );
   }
   
   obtenerUsuarios(){

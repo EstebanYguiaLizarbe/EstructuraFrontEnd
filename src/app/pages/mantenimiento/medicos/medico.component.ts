@@ -17,6 +17,8 @@ import { Hospital } from '../../../models/Hospital';
 import { Medico } from '../../../models/Medico';
 import { delay } from 'rxjs';
 import Swal from 'sweetalert2';
+import { CommonModule } from '@angular/common';
+import { ImagenPipe } from '../../../pipes/imagen.pipe';
 
 @Component({
   selector: 'app-medico',
@@ -27,6 +29,8 @@ import Swal from 'sweetalert2';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
+    CommonModule,
+    ImagenPipe
   ],
   templateUrl: './medico.component.html'
 })
@@ -71,6 +75,7 @@ export class MedicoComponent implements OnInit {
   
   cargarMedico(id: string) {
 
+
     if ( id === 'nuevo' ) {
       return;
     }
@@ -80,6 +85,8 @@ export class MedicoComponent implements OnInit {
         delay(100)
       )
       .subscribe( medico => {
+
+        console.log(medico, "medico")
 
         if ( !medico ) {
           return this.router.navigateByUrl(`/dashboard/medicos`);
@@ -122,11 +129,10 @@ export class MedicoComponent implements OnInit {
 
     } else {
       // crear
-      
       this.medicoService.crearMedico( this.medicoForm.value )
           .subscribe( (resp: any) => {
             Swal.fire('Creado', `${ nombre } creado correctamente`, 'success');
-            this.router.navigateByUrl(`/dashboard/medico/${ resp.medico._id }`)
+            this.router.navigateByUrl(`/medicos/${ resp.medico._id }`)
         })
     }
 

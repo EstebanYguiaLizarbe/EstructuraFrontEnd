@@ -37,7 +37,8 @@ const BELOWMONITOR = 'screen and (max-width: 1023px)';
 })
 export class SharedComponent {
 
-  navItems = navItems;
+  // navItems = navItems;
+  navItems;
 
   @ViewChild('leftsidenav')
   public sidenav: MatSidenav | any;
@@ -66,6 +67,8 @@ export class SharedComponent {
 
         this.isContentWidthFixed = state.breakpoints[MONITOR_VIEW];
       });
+
+      this.navItems = JSON.parse(localStorage.getItem('menu') || "[]") 
   }
 
   ngOnInit(): void {}
