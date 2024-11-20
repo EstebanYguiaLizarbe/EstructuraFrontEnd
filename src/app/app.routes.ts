@@ -8,21 +8,6 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 
 
 export const routes: Routes = [
-
-    //   {
-    //     path: '',
-    //     component: BlankComponent,
-    //     children: [
-    //       {
-    //         path: 'authentication',
-    //         loadChildren: () =>
-    //           import('./pages/authentication/authentication.routes').then(
-    //             (m) => m.AuthenticationRoutes
-    //           ),
-    //       },
-    //     ], 
-    //   },
-    
       {
         path: '',
         loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)

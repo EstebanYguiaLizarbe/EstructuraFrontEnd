@@ -77,6 +77,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         localStorage.removeItem('email');
       }
 
+      console.log("correcto")
       this.router.navigateByUrl("/");
       
     }, error => {

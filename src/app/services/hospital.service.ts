@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { enviroments } from '../../enviroments/enviroments';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { Hospital } from '../models/Hospital';
 import { HttpClient } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import { aparece, desaparece } from '../store/loading.reduce';
 
 const base_url = enviroments.base_url;
 
@@ -12,7 +14,9 @@ const base_url = enviroments.base_url;
 export class HospitalService {
 
   
-  constructor( private http: HttpClient ) { }
+  constructor( private http: HttpClient,
+    private store: Store<{ loading: boolean }>
+   ) { }
 
   get token(): string {
     return localStorage.getItem('token') || '';
@@ -30,9 +34,13 @@ export class HospitalService {
   cargarHospitales() {
 
     const url = `${ base_url }/hospitales`;
+
+    this.store.dispatch(aparece());
     return this.http.get( url, this.headers )
               .pipe(
-                map( (resp:any) => resp.hospitales )
+                map( (resp:any) => resp.hospitales ),
+                tap( (resp: any) => this.store.dispatch(aparece())),
+                
               );
   }
 
