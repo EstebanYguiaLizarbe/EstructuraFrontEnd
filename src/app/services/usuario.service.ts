@@ -3,10 +3,12 @@ import { Injectable } from '@angular/core';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { enviroments } from '../../enviroments/enviroments';
 import { LoginForm } from '../interfaces/login-form.interface';
-import { catchError, map, Observable, tap, of } from 'rxjs';
+import { catchError, map, Observable, tap, of, finalize } from 'rxjs';
 import { Router } from '@angular/router';
 import { Usuario } from '../models/Usuario';
 import { CargaUsuario } from '../interfaces/carga-usuario.interface';
+import { Store } from '@ngrx/store';
+import { apareceBarra, apareceSpinner, desaparece } from '../store/loading.reduce';
 
 declare const google: any;
 
@@ -21,7 +23,8 @@ export class UsuarioService {
 
   constructor(
     private Http: HttpClient,
-    private router: Router
+    private router: Router,
+    private store: Store<{ loading: boolean }>
   ) {}
 
   get token(): string{
@@ -113,14 +116,19 @@ export class UsuarioService {
       role: this.usuario.role
     }
 
+    this.store.dispatch(apareceBarra());
     return this.Http.put(`${base_url}/usuarios/${this.usuario.uid}`, data, {
       headers: {
         'x-token': this.token
       }
-    });
+    }).pipe(
+      finalize(() => this.store.dispatch(desaparece()))
+    );
   }
 
   obtenerUsuarios(desde: number = 0){
+    this.store.dispatch(apareceBarra());
+
     return this.Http.get<CargaUsuario>(`${base_url}/usuarios/?desde=${desde}`, this.headers).pipe(
       map( resp => {
         const usuarios = resp.usuarios.map( 
@@ -130,7 +138,8 @@ export class UsuarioService {
           total: resp.total,
           usuarios
         };
-      })
+      }),
+      finalize(() => this.store.dispatch(desaparece()))
     );
   }
 

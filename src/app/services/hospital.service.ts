@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { enviroments } from '../../enviroments/enviroments';
-import { map, tap } from 'rxjs';
+import { finalize, map, tap } from 'rxjs';
 import { Hospital } from '../models/Hospital';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { aparece, desaparece } from '../store/loading.reduce';
+import { aparece, apareceBarra, apareceSpinner, desaparece } from '../store/loading.reduce';
 
 const base_url = enviroments.base_url;
 
@@ -15,7 +15,7 @@ export class HospitalService {
 
   
   constructor( private http: HttpClient,
-    private store: Store<{ loading: boolean }>
+    private store: Store<{ loading: boolean }>,
    ) { }
 
   get token(): string {
@@ -35,11 +35,12 @@ export class HospitalService {
 
     const url = `${ base_url }/hospitales`;
 
-    this.store.dispatch(aparece());
+    this.store.dispatch(apareceSpinner());
+
     return this.http.get( url, this.headers )
               .pipe(
                 map( (resp:any) => resp.hospitales ),
-                tap( (resp: any) => this.store.dispatch(aparece())),
+                finalize(() => this.store.dispatch(desaparece()))
                 
               );
   }

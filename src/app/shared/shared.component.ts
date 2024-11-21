@@ -1,6 +1,6 @@
 import { BreakpointObserver, MediaMatcher } from '@angular/cdk/layout';
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { debounceTime, Subscription } from 'rxjs';
 import { MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
 import { navItems } from './sidebar/sidebar-data';
@@ -14,6 +14,9 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { HeaderComponent } from './header/header.component';
 import { BreadcrumsComponent } from './breadcrums/breadcrums.component';
 import { ModalImagenComponent } from '../components/modal-imagen/modal-imagen.component';
+import { Store } from '@ngrx/store';
+import { LoadingComponent } from './loading/loading.component';
+import { LoadingState } from '../store/loading.actions';
 
 const MOBILE_VIEW = 'screen and (max-width: 768px)';
 const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
@@ -31,7 +34,8 @@ const BELOWMONITOR = 'screen and (max-width: 1023px)';
     NgScrollbarModule,
     HeaderComponent,
     BreadcrumsComponent,
-    ModalImagenComponent
+    ModalImagenComponent,
+    LoadingComponent
   ],
   templateUrl: './shared.component.html'
 })
@@ -50,12 +54,17 @@ export class SharedComponent {
   private isCollapsedWidthFixed = false;
   private htmlElement!: HTMLHtmlElement;
 
+  loading$!: boolean
+
   get isOver(): boolean {
     return this.isMobileScreen;
   }
 
-  constructor(private breakpointObserver: BreakpointObserver, private navService: NavService) {
-    
+  constructor(private breakpointObserver: BreakpointObserver, private navService: NavService, private store: Store<{ loading: LoadingState }>, private cdref: ChangeDetectorRef) {
+    // console.log(store.subscribe(resp => console.log(resp, "respuesta")))
+    // store.select('loading').subscribe(resp => this.loading$ = resp);
+    // this.store.select("loading").subscribe(resp => console.log(resp, "respuesta shared"))
+
     this.htmlElement = document.querySelector('html')!;
     this.htmlElement.classList.add('light-theme');
     this.layoutChangesSubscription = this.breakpointObserver
@@ -71,7 +80,21 @@ export class SharedComponent {
       this.navItems = JSON.parse(localStorage.getItem('menu') || "[]") 
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // setTimeout(() => {
+    //   this.cdref.detectChanges(); 
+    //   this.store.select('loading').pipe(debounceTime(10)).subscribe(resp => {
+    //     this.loading$ = resp.cargado;
+  
+    //   });
+    // }, 0)
+    // this.cdref.detectChanges();
+
+      this.store.select('loading').pipe(debounceTime(10)).subscribe(resp => {
+        console.log("tick")
+        this.loading$ = resp.cargado;
+      });
+  }
 
   ngOnDestroy() {
     this.layoutChangesSubscription.unsubscribe();
@@ -88,4 +111,6 @@ export class SharedComponent {
   onSidenavOpenedChange(isOpened: boolean) {
     this.isCollapsedWidthFixed = !this.isOver;
   }
+
+  //
 }

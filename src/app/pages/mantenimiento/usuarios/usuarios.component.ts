@@ -97,7 +97,6 @@ export class UsuariosComponent implements OnInit, OnDestroy{
 
     this.usuarioService.obtenerUsuarios(this.desde).pipe(delay(100)).
     subscribe(({total, usuarios}) => {
-      console.log(usuarios, "users")
       this.totalUsuarios = total;
 
       if(usuarios.length !== 0){
@@ -167,7 +166,6 @@ export class UsuariosComponent implements OnInit, OnDestroy{
   cambiarRole(usuario: Usuario){
     this.usuarioService.guardarUsuario( usuario )
       .subscribe( resp => {
-        console.log(resp); 
       })
   }
 

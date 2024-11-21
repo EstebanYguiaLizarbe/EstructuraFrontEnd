@@ -1,1 +1,18 @@
-<mat-spinner></mat-spinner>
+
+    @switch (true) {
+        @case(mostrarBarra){
+            <div class="loading-barra">
+                <mat-progress-bar class="" style="position: fixed; bottom: 0;" mode="indeterminate"></mat-progress-bar>
+            </div>
+        }
+        @case(mostrarSpinner){
+            <div class="loading">
+                <mat-spinner></mat-spinner>
+            </div>
+        }
+    }
+
+
+
+
+

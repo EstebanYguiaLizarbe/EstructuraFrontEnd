@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/header/header.component';
 import { LoadingComponent } from './shared/loading/loading.component';
@@ -11,25 +11,30 @@ import { aparece, desaparece } from './store/loading.reduce';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, LoadingComponent, CommonModule],
+  imports: [RouterOutlet, CommonModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'Frontend-Migra';
 
-  loading$!: Observable<boolean>
+  // loading$!: Observable<boolean>
+  loading$!: boolean
 
   constructor(
     private store: Store<{ loading: boolean }>
   ){
-    console.log(store.subscribe(resp => console.log(resp, "respuesta")))
-    this.loading$ = store.select('loading');
+    // console.log(store.subscribe(resp => console.log(resp, "respuesta")))
+
+    // // this.loading$ = store.select('loading');
+    // store.select('loading').subscribe(resp => this.loading$ = resp);
+    // this.store.dispatch(aparece());
+    // this.store.dispatch(desaparece());
     
   }
   ngOnInit(): void {
       // this.store.dispatch(desaparece());
-
+    
 
   }
 }

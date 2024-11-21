@@ -1,6 +1,6 @@
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MaterialModule } from '../../../../app/material.module';
@@ -13,10 +13,12 @@ import { BusquedasService } from '../../../services/busquedas.service';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
 import { ModalImagenService } from '../../../services/modal-imagen.service';
-import { delay, Subscription } from 'rxjs';
+import { delay, finalize, Subscription } from 'rxjs';
 import { Hospital } from '../../../models/Hospital';
 import { HospitalService } from '../../../services/hospital.service';
 import { ImagenPipe } from '../../../pipes/imagen.pipe';
+import { Store } from '@ngrx/store';
+import { aparece, apareceBarra, apareceSpinner, desaparece } from '../../../store/loading.reduce';
 
 @Component({
   selector: 'app-hospitales',
@@ -31,31 +33,39 @@ import { ImagenPipe } from '../../../pipes/imagen.pipe';
     MatMenuModule,
     MatButtonModule,
     FormsModule,
-    ImagenPipe
+    ImagenPipe,
+    
   ],
   templateUrl: './hospitales.component.html'
 })
 export class HospitalesComponent {
 
   public hospitales: Hospital[] = [];
-  public cargando: boolean = true;
+  // public cargando: boolean = true;
   private imgSubs!: Subscription;
 
   constructor( private hospitalService: HospitalService,
                private modalImagenService: ModalImagenService,
-               private busquedasService: BusquedasService ) { }
+               private busquedasService: BusquedasService,
+               private store: Store<{ loading: boolean }>,
+              ) {
+                
+              }
 
   ngOnDestroy(): void {
     this.imgSubs.unsubscribe();
   }
 
   ngOnInit(): void {
+    // this.store.dispatch(aparece({loading: {spinner:true, barra: false, cargado: true}}));
+    // this.store.dispatch(apareceBarra());
     this.cargarHospitales();
 
     this.imgSubs = this.imgSubs = this.modalImagenService.nuevaImagen
       .pipe(delay(100))
       .subscribe( img => this.cargarHospitales() );
   }
+
 
   buscar( termino: string ) {
 
@@ -75,11 +85,12 @@ export class HospitalesComponent {
 
   cargarHospitales() {
 
-    this.cargando = true;
+    // this.cargando = true;
     this.hospitalService.cargarHospitales()
         .subscribe( hospitales => {
-          this.cargando = false;
+          // this.cargando = false;
           this.hospitales = hospitales;
+          
         })
 
   }
