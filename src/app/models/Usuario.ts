@@ -1,6 +1,6 @@
-import { enviroments } from "../../enviroments/enviroments"
+import { environment } from "../../environments/environment";
 
-const base_url = enviroments.base_url;
+const base_url = environment.base_url;
 
 export class Usuario {
     constructor(

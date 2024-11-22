@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { enviroments } from '../../enviroments/enviroments';
 import { map, Observable } from 'rxjs';
 import { Medico } from '../models/Medico';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
-const base_url = enviroments.base_url;
+const base_url = environment.base_url;
 
 interface MedicoResponse { ok: boolean; medicos: Medico[]};
 

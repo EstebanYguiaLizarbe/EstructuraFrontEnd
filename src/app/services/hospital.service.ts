@@ -1,12 +1,12 @@
 import { ChangeDetectorRef, Injectable } from '@angular/core';
-import { enviroments } from '../../enviroments/enviroments';
 import { finalize, map, tap } from 'rxjs';
 import { Hospital } from '../models/Hospital';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { aparece, apareceBarra, apareceSpinner, desaparece } from '../store/loading.reduce';
+import { environment } from '../../environments/environment';
 
-const base_url = enviroments.base_url;
+const base_url = environment.base_url;
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RegisterForm } from '../interfaces/register-form.interface';
-import { enviroments } from '../../enviroments/enviroments';
 import { LoginForm } from '../interfaces/login-form.interface';
 import { catchError, map, Observable, tap, of, finalize } from 'rxjs';
 import { Router } from '@angular/router';
@@ -9,10 +8,11 @@ import { Usuario } from '../models/Usuario';
 import { CargaUsuario } from '../interfaces/carga-usuario.interface';
 import { Store } from '@ngrx/store';
 import { apareceBarra, apareceSpinner, desaparece } from '../store/loading.reduce';
+import { environment } from '../../environments/environment';
 
 declare const google: any;
 
-const base_url = enviroments.base_url;
+const base_url = environment.base_url;
 
 @Injectable({
   providedIn: 'root'
@@ -61,8 +61,6 @@ export class UsuarioService {
     localStorage.removeItem('menu');
     this.router.navigateByUrl('/login');
     // google.accounts.id.revoke('correo', () => {
-
-
     // });
   }
 
